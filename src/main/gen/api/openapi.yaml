@@ -1,0 +1,270 @@
+openapi: 3.0.1
+info:
+  description: "REST API for managing commercial loan agreements, balances, interest\
+    \ rates, and parties"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: Loan Tech API
+  version: 0.0.1-SNAPSHOT
+servers:
+- description: Generated server url
+  url: http://localhost:9091
+paths:
+  /api/v1/agreements/bundle:
+    delete:
+      operationId: purgeAgreementBundle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgreementBundleDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - agreement-bundle-resource
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+    post:
+      operationId: createAgreementBundle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgreementBundleDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - agreement-bundle-resource
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+    put:
+      operationId: updateAgreementBundle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgreementBundleDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - agreement-bundle-resource
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+components:
+  schemas:
+    AgreementBundleDTO:
+      example:
+        balances:
+        - balanceType: ACCRUED_INT_DAILY
+          balanceDate: 2000-01-23
+          agreementId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          netBalance: 9.301444243932576
+          debitAmount: 7.061401241503109
+          creditAmount: 2.3021358869347655
+          balanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - balanceType: ACCRUED_INT_DAILY
+          balanceDate: 2000-01-23
+          agreementId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          netBalance: 9.301444243932576
+          debitAmount: 7.061401241503109
+          creditAmount: 2.3021358869347655
+          balanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        agreement:
+          agreementType: agreementType
+          sourceSystem: sourceSystem
+          creditFacilityNo: creditFacilityNo
+          unbankLetterIssuerIndicator: true
+          deletedIndicator: true
+          expiryDate: 2000-01-23
+          productCode: productCode
+          originalAmount: 0.8008281904610115
+          agreementNo: agreementNo
+          maturityDate: 2000-01-23
+          statusCodeSource: statusCodeSource
+          currency: currency
+          effectiveDate: 2000-01-23
+          statusCode: EN_ATTENTE
+        interestRates:
+        - interestRate: 6.027456183070403
+          interestRateId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          baseRate: 1.4658129805029452
+          spreadRate: 5.962133916683182
+          effectiveRate: 5.637376656633329
+          agreementId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          interestRateType: FIXED
+          effectiveDate: 2000-01-23
+        - interestRate: 6.027456183070403
+          interestRateId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          baseRate: 1.4658129805029452
+          spreadRate: 5.962133916683182
+          effectiveRate: 5.637376656633329
+          agreementId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          interestRateType: FIXED
+          effectiveDate: 2000-01-23
+        party:
+          agreementId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          partyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          unbankId: unbankId
+          memberIdNo: memberIdNo
+      properties:
+        agreement:
+          $ref: '#/components/schemas/AgreementDTO'
+        interestRates:
+          items:
+            $ref: '#/components/schemas/InterestRateDTO'
+          type: array
+        balances:
+          items:
+            $ref: '#/components/schemas/BalanceDTO'
+          type: array
+        party:
+          $ref: '#/components/schemas/PartyDTO'
+      type: object
+    AgreementDTO:
+      example:
+        agreementType: agreementType
+        sourceSystem: sourceSystem
+        creditFacilityNo: creditFacilityNo
+        unbankLetterIssuerIndicator: true
+        deletedIndicator: true
+        expiryDate: 2000-01-23
+        productCode: productCode
+        originalAmount: 0.8008281904610115
+        agreementNo: agreementNo
+        maturityDate: 2000-01-23
+        statusCodeSource: statusCodeSource
+        currency: currency
+        effectiveDate: 2000-01-23
+        statusCode: EN_ATTENTE
+      properties:
+        agreementNo:
+          type: string
+        creditFacilityNo:
+          type: string
+        agreementType:
+          type: string
+        productCode:
+          type: string
+        statusCodeSource:
+          type: string
+        statusCode:
+          enum:
+          - EN_ATTENTE
+          - OUVERT
+          - SUSPENDU
+          - FERME
+          type: string
+        unbankLetterIssuerIndicator:
+          type: boolean
+        originalAmount:
+          type: number
+        effectiveDate:
+          format: date
+          type: string
+        expiryDate:
+          format: date
+          type: string
+        maturityDate:
+          format: date
+          type: string
+        currency:
+          type: string
+        sourceSystem:
+          type: string
+        deletedIndicator:
+          type: boolean
+      type: object
+    BalanceDTO:
+      example:
+        balanceType: ACCRUED_INT_DAILY
+        balanceDate: 2000-01-23
+        agreementId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        netBalance: 9.301444243932576
+        debitAmount: 7.061401241503109
+        creditAmount: 2.3021358869347655
+        balanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        balanceId:
+          format: uuid
+          type: string
+        agreementId:
+          format: uuid
+          type: string
+        balanceType:
+          enum:
+          - ACCRUED_INT_DAILY
+          - ACCRUED_INT_CUMULATED
+          type: string
+        creditAmount:
+          type: number
+        debitAmount:
+          type: number
+        netBalance:
+          type: number
+        balanceDate:
+          format: date
+          type: string
+      type: object
+    InterestRateDTO:
+      example:
+        interestRate: 6.027456183070403
+        interestRateId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        baseRate: 1.4658129805029452
+        spreadRate: 5.962133916683182
+        effectiveRate: 5.637376656633329
+        agreementId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        interestRateType: FIXED
+        effectiveDate: 2000-01-23
+      properties:
+        interestRateId:
+          format: uuid
+          type: string
+        agreementId:
+          format: uuid
+          type: string
+        interestRateType:
+          enum:
+          - FIXED
+          - VARIABLE
+          type: string
+        interestRate:
+          type: number
+        baseRate:
+          type: number
+        spreadRate:
+          type: number
+        effectiveDate:
+          format: date
+          type: string
+        effectiveRate:
+          type: number
+      type: object
+    PartyDTO:
+      example:
+        agreementId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        partyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        unbankId: unbankId
+        memberIdNo: memberIdNo
+      properties:
+        partyId:
+          format: uuid
+          type: string
+        agreementId:
+          format: uuid
+          type: string
+        unbankId:
+          type: string
+        memberIdNo:
+          type: string
+      type: object
+

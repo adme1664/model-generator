@@ -1,0 +1,237 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Loan Tech API",
+    "description" : "REST API for managing commercial loan agreements, balances, interest rates, and parties",
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "0.0.1-SNAPSHOT"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:9091",
+    "description" : "Generated server url"
+  } ],
+  "paths" : {
+    "/api/v1/agreements/bundle" : {
+      "put" : {
+        "tags" : [ "Agreement Bundle Resource" ],
+        "operationId" : "updateAgreementBundle",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AgreementBundleDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Agreement Bundle Resource" ],
+        "operationId" : "createAgreementBundle",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AgreementBundleDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Agreement Bundle Resource" ],
+        "operationId" : "purgeAgreementBundle",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AgreementBundleDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "AgreementBundleDTO" : {
+        "type" : "object",
+        "properties" : {
+          "agreement" : {
+            "$ref" : "#/components/schemas/AgreementDTO"
+          },
+          "interestRates" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/InterestRateDTO"
+            }
+          },
+          "balances" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/BalanceDTO"
+            }
+          },
+          "party" : {
+            "$ref" : "#/components/schemas/PartyDTO"
+          }
+        }
+      },
+      "AgreementDTO" : {
+        "type" : "object",
+        "properties" : {
+          "agreementNo" : {
+            "type" : "string"
+          },
+          "creditFacilityNo" : {
+            "type" : "string"
+          },
+          "agreementType" : {
+            "type" : "string"
+          },
+          "productCode" : {
+            "type" : "string"
+          },
+          "statusCodeSource" : {
+            "type" : "string"
+          },
+          "statusCode" : {
+            "type" : "string",
+            "enum" : [ "EN_ATTENTE", "OUVERT", "SUSPENDU", "FERME" ]
+          },
+          "unbankLetterIssuerIndicator" : {
+            "type" : "boolean"
+          },
+          "originalAmount" : {
+            "type" : "number"
+          },
+          "effectiveDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "expiryDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "maturityDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "currency" : {
+            "type" : "string"
+          },
+          "sourceSystem" : {
+            "type" : "string"
+          },
+          "deletedIndicator" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "BalanceDTO" : {
+        "type" : "object",
+        "properties" : {
+          "balanceId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "agreementId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "balanceType" : {
+            "type" : "string",
+            "enum" : [ "ACCRUED_INT_DAILY", "ACCRUED_INT_CUMULATED" ]
+          },
+          "creditAmount" : {
+            "type" : "number"
+          },
+          "debitAmount" : {
+            "type" : "number"
+          },
+          "netBalance" : {
+            "type" : "number"
+          },
+          "balanceDate" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }
+      },
+      "InterestRateDTO" : {
+        "type" : "object",
+        "properties" : {
+          "interestRateId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "agreementId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "interestRateType" : {
+            "type" : "string",
+            "enum" : [ "FIXED", "VARIABLE" ]
+          },
+          "interestRate" : {
+            "type" : "number"
+          },
+          "baseRate" : {
+            "type" : "number"
+          },
+          "spreadRate" : {
+            "type" : "number"
+          },
+          "effectiveDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "effectiveRate" : {
+            "type" : "number"
+          }
+        }
+      },
+      "PartyDTO" : {
+        "type" : "object",
+        "properties" : {
+          "partyId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "agreementId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "unbankId" : {
+            "type" : "string"
+          },
+          "memberIdNo" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
