@@ -16,7 +16,7 @@
   "paths" : {
     "/api/v1/agreements/bundle" : {
       "put" : {
-        "tags" : [ "Agreement Bundle Resource" ],
+        "tags" : [ "agreement-bundle-resource" ],
         "operationId" : "updateAgreementBundle",
         "requestBody" : {
           "content" : {
@@ -35,7 +35,7 @@
         }
       },
       "post" : {
-        "tags" : [ "Agreement Bundle Resource" ],
+        "tags" : [ "agreement-bundle-resource" ],
         "operationId" : "createAgreementBundle",
         "requestBody" : {
           "content" : {
@@ -54,7 +54,7 @@
         }
       },
       "delete" : {
-        "tags" : [ "Agreement Bundle Resource" ],
+        "tags" : [ "agreement-bundle-resource" ],
         "operationId" : "purgeAgreementBundle",
         "requestBody" : {
           "content" : {
@@ -72,13 +72,187 @@
           }
         }
       }
+    },
+    "/api/v1/credit-facilities/bundle" : {
+      "put" : {
+        "tags" : [ "deal-bundle-resource" ],
+        "operationId" : "updateCreditFacilityBundle",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DealBundleDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "deal-bundle-resource" ],
+        "operationId" : "createDealBundle",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DealBundleDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "deal-bundle-resource" ],
+        "operationId" : "purgeDeal",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DealBundleDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
     }
   },
   "components" : {
     "schemas" : {
+      "AgreementRelationDTO" : {
+        "type" : "object",
+        "properties" : {
+          "agreementId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CfPartyDTO" : {
+        "type" : "object",
+        "properties" : {
+          "unbankId" : {
+            "type" : "string"
+          },
+          "memberIdNo" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CreditFacilityDTO" : {
+        "type" : "object",
+        "properties" : {
+          "creditFacilityNo" : {
+            "type" : "string"
+          },
+          "borrowingAgreementId" : {
+            "type" : "string"
+          },
+          "creditFacilityName" : {
+            "type" : "string"
+          },
+          "statusCode" : {
+            "type" : "string"
+          },
+          "statusCodeSource" : {
+            "type" : "string"
+          },
+          "productCode" : {
+            "type" : "string"
+          },
+          "lenderRoleCode" : {
+            "type" : "string"
+          },
+          "effectiveDate" : {
+            "type" : "string"
+          },
+          "expiryDate" : {
+            "type" : "string"
+          },
+          "maturityDate" : {
+            "type" : "string"
+          },
+          "currency" : {
+            "type" : "string"
+          },
+          "agreementRelations" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/AgreementRelationDTO"
+            }
+          }
+        }
+      },
+      "DealBundleDTO" : {
+        "type" : "object",
+        "properties" : {
+          "dealNo" : {
+            "type" : "string"
+          },
+          "operation" : {
+            "type" : "string"
+          },
+          "deal" : {
+            "$ref" : "#/components/schemas/DealDTO"
+          },
+          "creditFacilities" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CreditFacilityDTO"
+            }
+          },
+          "parties" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CfPartyDTO"
+            }
+          }
+        }
+      },
+      "DealDTO" : {
+        "type" : "object",
+        "properties" : {
+          "borrowingAgreementId" : {
+            "type" : "string"
+          },
+          "borrowingAgreementName" : {
+            "type" : "string"
+          },
+          "effectiveDate" : {
+            "type" : "string"
+          },
+          "classificationCode" : {
+            "type" : "string"
+          },
+          "nextReviewDate" : {
+            "type" : "string"
+          }
+        }
+      },
       "AgreementBundleDTO" : {
         "type" : "object",
         "properties" : {
+          "agreementNo" : {
+            "type" : "string"
+          },
+          "operation" : {
+            "type" : "string"
+          },
           "agreement" : {
             "$ref" : "#/components/schemas/AgreementDTO"
           },
@@ -92,6 +266,12 @@
             "type" : "array",
             "items" : {
               "$ref" : "#/components/schemas/BalanceDTO"
+            }
+          },
+          "paymentSchedules" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PaymentScheduleDTO"
             }
           },
           "party" : {
@@ -118,8 +298,7 @@
             "type" : "string"
           },
           "statusCode" : {
-            "type" : "string",
-            "enum" : [ "EN_ATTENTE", "OUVERT", "SUSPENDU", "FERME" ]
+            "type" : "string"
           },
           "unbankLetterIssuerIndicator" : {
             "type" : "boolean"
@@ -129,15 +308,15 @@
           },
           "effectiveDate" : {
             "type" : "string",
-            "format" : "date"
+            "format" : "date-timed"
           },
           "expiryDate" : {
             "type" : "string",
-            "format" : "date"
+            "format" : "date-timed"
           },
           "maturityDate" : {
             "type" : "string",
-            "format" : "date"
+            "format" : "date-timed"
           },
           "currency" : {
             "type" : "string"
@@ -162,8 +341,7 @@
             "format" : "uuid"
           },
           "balanceType" : {
-            "type" : "string",
-            "enum" : [ "ACCRUED_INT_DAILY", "ACCRUED_INT_CUMULATED" ]
+            "type" : "string"
           },
           "creditAmount" : {
             "type" : "number"
@@ -176,7 +354,7 @@
           },
           "balanceDate" : {
             "type" : "string",
-            "format" : "date"
+            "format" : "date-timed"
           }
         }
       },
@@ -192,8 +370,7 @@
             "format" : "uuid"
           },
           "interestRateType" : {
-            "type" : "string",
-            "enum" : [ "FIXED", "VARIABLE" ]
+            "type" : "string"
           },
           "interestRate" : {
             "type" : "number"
@@ -206,7 +383,7 @@
           },
           "effectiveDate" : {
             "type" : "string",
-            "format" : "date"
+            "format" : "date-timed"
           },
           "effectiveRate" : {
             "type" : "number"
@@ -231,7 +408,38 @@
             "type" : "string"
           }
         }
+      },
+      "PaymentScheduleDTO" : {
+        "type": "object",
+        "properties": {
+          "paymentScheduleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "agreementId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "paymentAmnt": {
+            "type": "number"
+          },
+          "paymentDate": {
+            "type": "string"
+          },
+          "businessDate": {
+            "type": "string"
+          }
+        }
+      },
+      "Date": {
+        "type": "string",
+        "format": "date"
+      },
+      "Instant": {
+        "type": "string",
+        "format": "date-time"
       }
+
     }
   }
 }

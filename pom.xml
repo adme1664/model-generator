@@ -71,6 +71,9 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <classifier>exec</classifier>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.openapitools</groupId>
@@ -85,8 +88,8 @@
             <configuration>
               <inputSpec>${project.basedir}/src/main/resources/openapi.json</inputSpec>
               <generatorName>spring</generatorName>
-              <modelPackage>com.adme.learning.model</modelPackage>
-              <apiPackage>com.adme.learning.loan.api</apiPackage>
+              <modelPackage>com.adme.learning.model.generator</modelPackage>
+              <apiPackage>com.adme.learning.model.generator.api</apiPackage>
               <apiNameSuffix>Api</apiNameSuffix>
               <generateApis>true</generateApis>
               <generateModelTests>false</generateModelTests>
