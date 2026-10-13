@@ -119,7 +119,7 @@
     <repository>
       <id>github</id>
       <name>GitHub Adme Learning Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/adme1664/model-mapper</url>
+      <url>https://maven.pkg.github.com/adme1664/model-generator</url>
     </repository>
   </distributionManagement>
 
