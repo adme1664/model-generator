@@ -1,4 +1,4 @@
-name: Java CI/CD with Maven
+name: Workflows CI/CD
 
 on:
   push:
