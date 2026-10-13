@@ -131,10 +131,45 @@
           }
         }
       }
+    },
+    "/api/v1/balances" : {
+      "post" : {
+        "tags" : [ "balance-bundle-resource" ],
+        "operationId" : "saveOrUpdate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BalanceBundleDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
     }
   },
   "components" : {
     "schemas" : {
+      "BalanceBundleDTO" : {
+        "type" : "object",
+        "properties" : {
+          "agreementNo" : {
+            "type" : "string"
+          },
+          "balances" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/BalanceDTO"
+            }
+          }
+        }
+      },
       "AgreementRelationDTO" : {
         "type" : "object",
         "properties" : {
