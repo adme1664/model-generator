@@ -115,5 +115,12 @@
       </plugin>
     </plugins>
   </build>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Adme Learning Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/adme1664/model-mapper</url>
+    </repository>
+  </distributionManagement>
 
 </project>
